@@ -231,6 +231,18 @@
             "description": "Shell command to execute in the sandbox environment.",
             "type": "string"
           },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Optional short, specific description of the command's intent for display. Provide one for nontrivial commands; it does not affect execution."
+          },
           "timeout": {
             "anyOf": [
               {

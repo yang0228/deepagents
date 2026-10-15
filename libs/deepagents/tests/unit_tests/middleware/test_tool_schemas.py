@@ -28,7 +28,7 @@ class TestFilesystemToolSchemas:
             "delete": ["file_path"],
             "glob": ["pattern", "path"],
             "grep": ["pattern", "path", "glob", "output_mode"],
-            "execute": ["command"],
+            "execute": ["command", "description"],
         }
 
         tool_map = {tool.name: tool for tool in tools}

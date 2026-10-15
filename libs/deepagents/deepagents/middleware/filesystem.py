@@ -1476,6 +1476,14 @@ class ExecuteSchema(BaseModel):
 
     command: str = Field(description="Shell command to execute in the sandbox environment.")
 
+    description: str | None = Field(
+        default=None,
+        description=(
+            "Optional short, specific description of the command's intent for display. "
+            "Provide one for nontrivial commands; it does not affect execution."
+        ),
+    )
+
     timeout: int | None = Field(
         default=None,
         description="Optional timeout in seconds for this command. Overrides the default timeout.",
@@ -3148,6 +3156,8 @@ class FilesystemMiddleware(AgentMiddleware[FilesystemState, ContextT, ResponseT]
             command: str,
             runtime: ToolRuntime[None, FilesystemState],
             timeout: int | None = None,
+            *,
+            description: str | None = None,  # noqa: ARG001  # Display-only metadata; never passed to the backend.
         ) -> ToolMessage:
             """Synchronous wrapper for execute tool."""
             if timeout is not None:
@@ -3237,6 +3247,8 @@ class FilesystemMiddleware(AgentMiddleware[FilesystemState, ContextT, ResponseT]
             command: str,
             runtime: ToolRuntime[None, FilesystemState],
             timeout: int | None = None,  # noqa: ASYNC109  # forwarded to backend, not an asyncio contract
+            *,
+            description: str | None = None,  # noqa: ARG001  # Display-only metadata; never passed to the backend.
         ) -> ToolMessage:
             """Asynchronous wrapper for execute tool."""
             if timeout is not None:
